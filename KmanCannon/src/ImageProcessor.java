@@ -30,18 +30,20 @@ public class ImageProcessor {
 	
 	private static boolean scan(final int r,final int c) {
 		final int nc = c + RADIUS;
+		if(nc >= IMG_WIDTH) return false;
 		for(int nr = r - RADIUS; nr <= r + RADIUS; nr++) {
 			try {if(!MAP[nr][nc]) return false;}
 			catch(final ArrayIndexOutOfBoundsException e) {
 				System.err.println("("+r+","+c+")->("+nr+","+nc+")");
 				e.printStackTrace();
-				System.exit(1);
+				return false;
 			}
 		}
 		return true;
 	}
 	
 	private static int firstFit(final int r,final int c) {
+		if(r >= IMG_WIDTH - RADIUS) return -1;
 		int ctr = STEP;
 		int nc = c;
 		while(ctr > 0 && nc < IMG_WIDTH) {
@@ -154,7 +156,7 @@ public class ImageProcessor {
 			 err = getErr(acc,eff,nshots);}
 		
 		private static final double getErr(final double acc,final double eff,final int nshots)
-			{return hypot(100.0-acc,100.0-eff);}
+			{return hypot(100.0-acc,100.0-eff) /*+ (double) nshots*/;}
 	}
 	
 	public static DrawResult draw(final LinkedList<Shot> shots,final BufferedImage original,final String file,final int total) throws IOException {
@@ -321,3 +323,63 @@ public class ImageProcessor {
 		try {execute(file);} catch (IOException e) {e.printStackTrace();}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
