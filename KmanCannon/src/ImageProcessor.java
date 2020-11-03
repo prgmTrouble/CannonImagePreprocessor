@@ -202,7 +202,7 @@ public class ImageProcessor {
 		return dr;
 	}
 	
-	private static void printResult(final String title,final DrawResult dr) {
+	private static void printResult(final String title,final DrawResult dr,final int toDamage) {
 		out.println(title+": "+dr.file);
 		out.println("\t#  dmg:"+dr.ndamage);
 		out.println("\t# fail:"+dr.nmiss);
@@ -210,6 +210,11 @@ public class ImageProcessor {
 		out.println("\t%  acc:"+dr.acc);
 		out.println("\t%  eff:"+dr.eff);
 		out.println("\t   err:"+dr.err);
+		out.println("\tFX Formatting");
+		out.println("\ttotal blocks:"+dr.ndamage);
+		out.println("\tblocks missed:"+(toDamage-dr.ndamage));
+		out.println("\ttnt used:"+dr.nshots);
+		out.println("\tefficiency:"+(((double)dr.ndamage/(double)toDamage)*100.0));
 		out.println();
 	}
 	
@@ -279,9 +284,9 @@ public class ImageProcessor {
 			}
 		}
 		
-		printResult("best err",dr_err);
-		printResult("best acc",dr_acc);
-		printResult("best eff",dr_eff);
+		printResult("best err",dr_err,toDamage);
+		printResult("best acc",dr_acc,toDamage);
+		printResult("best eff",dr_eff,toDamage);
 		
 		draw(total,original,file+"total.png",toDamage);
 	}
